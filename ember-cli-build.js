@@ -13,8 +13,12 @@ module.exports = function (defaults) {
         DEPRECATE_STORE_EXTENDS_EMBER_OBJECT: false,
       },
     },
-    // Add options here
-  });
+    postcssOptions: {
+      compile: {
+        plugins: [{ module: require('tailwindcss') }],
+      },
+    },
+    });
 
   const { Webpack } = require('@embroider/webpack');
   return require('@embroider/compat').compatBuild(app, Webpack, {
