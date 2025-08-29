@@ -1,0 +1,19 @@
+{{#if @route}}
+<LinkTo
+  @route={{@route}}
+  class="inline-block px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none
+    {{@class}}"
+  ...attributes
+>
+  {{yield}}
+</LinkTo>
+{{else}}
+  <button
+    type="button"
+    class="px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none {{@class}}"
+    {{on "click" @onClick}}
+    ...attributes
+  >
+    {{yield}}
+  </button>
+{{/if}}

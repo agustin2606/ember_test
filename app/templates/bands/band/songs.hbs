@@ -2,40 +2,8 @@
 <div class="mb-8 flex">
   {{#if this.sortedSongs.length}}
     <span class="relative z-0 inline-flex shadow-sm mt-8">
-      <LinkTo
-        class="rounded-l-md inline-flex items-center px-4 py-2 border border-gray-500 bg-purple-600 leading-5 font-medium text-gray-100 hover:text-white hover:bg-purple-500"
-        data-test-rr="sort-by-title-asc"
-        @query={{hash s="title"}}
-      >
-        Title
-        <FaIcon class="ml-2" @icon="angle-up" @prefix="fas" />
-      </LinkTo>
-      <LinkTo
-        class="-ml-px inline-flex items-center px-4 py-2 border border-gray-500 bg-purple-600 leading-5 font-medium text-gray-100 hover:textwhite hover:bg-purple-500"
-        data-test-rr="sort-by-title-desc"
-        @query={{hash s="-title"}}
-      >
-        Title
-        <FaIcon class="ml-2" @icon="angle-down" @prefix="fas" />
-      </LinkTo>
-      <LinkTo
-        class="-ml-px inline-flex items-center px-4 py-2 border border-gray-500 bg-purple-600 leading-5 font-medium text-gray-100 hover:textwhite hover:bg-purple-500"
-        type="button"
-        data-test-rr="sort-by-rating-asc"
-        @query={{hash s="rating"}}
-      >
-        Rating
-        <FaIcon class="ml-2" @icon="angle-up" @prefix="fas" />
-      </LinkTo>
-      <LinkTo
-        type="button"
-        class="rounded-r-md -ml-px inline-flex items-center px-4 py-2 border border-gray-500 bg-purple-600 leading-5 font-medium textgray-100 hover:bg-purple-500 hover:text-white"
-        data-test-rr="sort-by-rating-desc"
-        @query={{hash s="-rating"}}
-      >
-        Rating
-        <FaIcon class="ml-2" @icon="angle-down" @prefix="fas" />
-      </LinkTo>
+      <FilterTitle />
+      <FilterRating />
     </span>
   {{/if}}
   <div class="relative ml-auto rounded-md shadow-sm mt-8">
@@ -57,15 +25,16 @@
 {{#if this.sortedSongs.length}}
   <ul>
     {{#each this.sortedSongs as |song|}}
-      <li class="mb-2" data-test-rr="song-list-item">
+      {{!-- <li class="mb-2" data-test-rr="song-list-item">
         {{capitalize song.title}}
         <span class="float-right">
           <StarRating
             @rating={{song.rating}}
-            @onUpdate={{fn this.updateSong song}}
+            @onUpdate={{fn this.updateRating song}}
           />
         </span>
-      </li>
+      </li> --}}
+      <RowSongStars @song={{song}} @onUpdate={{fn this.updateRating song}} />
     {{/each}}
   </ul>
 {{else}}
@@ -75,13 +44,16 @@
 {{/if}}
 {{#if this.showAddSong}}
   <div class="flex justify-center mt-2">
-    <button
+    {{!-- <button
       type="button"
       class="px-4 py-2 rounded bg-purple-600 shadow-md hover:shadow-lg hover:text-white hover:bg-purple-500 focus:outline-none"
       {{on "click" (set this "showAddSong" false)}}
     >
       Add song
-    </button>
+    </button> --}}
+    <UiButton @onClick={{(set this "showAddSong" false)}}>
+      Add song
+    </UiButton>
   </div>
 {{else}}
   <div class="mt-6 flex">

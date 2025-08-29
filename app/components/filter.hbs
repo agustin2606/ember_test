@@ -1,0 +1,6 @@
+{{#if @query}}
+  <LinkTo class={{@class}} data-test-rr={{this.testSelector}} @query={{@query}}>
+    {{this.textSelector}}
+    <FaIcon class="ml-2" @icon={{this.iconSelector}} @prefix="fas" />
+  </LinkTo>
+{{/if}}
